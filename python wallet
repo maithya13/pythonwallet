@@ -1,0 +1,26 @@
+import requests
+import uuid
+
+# Replace with your API key
+api_key = "your_circle_api_key"
+url = "https://api.circle.com/v1/wallets"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {api_key}"
+}
+
+data = {
+    "idempotencyKey": str(uuid.uuid4()),  # Generate a unique idempotency key
+    "description": "My first Circle wallet"
+}
+
+response = requests.post(url, json=data, headers=headers)
+
+if response.status_code == 201:
+    print("Wallet created successfully!")
+    print("Response data:", response.json())
+else:
+    print("Failed to create wallet.")
+    print("Status code:", response.status_code)
+    print("Response data:", response.json())
